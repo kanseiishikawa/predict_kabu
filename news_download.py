@@ -1,5 +1,6 @@
 import requests
 import bs4
+import pickle
 
 data = {}
 
@@ -48,4 +49,8 @@ def main():
                 else:
                     day_name = str(day)
                 news(str(year), month_name, day_name)
+                
+    f = open("ten_year_news_data", "wb")
+    pickle.dump(data, f)
+    f.close
 main()
