@@ -40,11 +40,38 @@ class database_python():
                 
         sql_command += value_command
         self.cursor.execute(sql_command, tuple(data))
+        self.db.commit()
+        
         return True
+
+    def take_out(self, key_select, key_conditions, table_name):
+        sql_command = "SELECT "
+        
+        for i in range(0, len(key_select)):
+            sql_command += key_select[i]
+            if i != len(key_select) - 1:
+                sql_command += ","
+
+            sql_command += " "
+            
+        sql_command += "FROM " + table_name
+
+        if(len(key_conditions) != 0):
+            sql_command += " WHERE"
+            for i in range(0, len(key_conditions)):
+                sql_command += " " + key_conditions[i]
+                if i != len(key_conditions) - 1:
+                    sql_command += " AND"
+        print(sql_command)
+        self.cursor.execute(sql_command)
+        return list(self.cursor.fetchall())
     
 def main():
     dp = database_python("test.db")
-    aa = ["a", "b", "c"]
+    aa = ["a", "b", "c", "d"]
     dp.cleatetable("aaa", aa)
-    dp.add("aaa", [1,2,3])
+    dp.add("aaa", [1,2,3,4])
+    dp.add("aaa", [3,2,3,5])
+    ss = dp.take_out(["a", "b"], ["a=1", "b=2"],"aaa")
+    print(ss[0])
 main()
