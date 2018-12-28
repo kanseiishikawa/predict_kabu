@@ -2,7 +2,7 @@ import os
 import database
 
 def kabu_main():
-    base_path = "/Users/kansei.ishikawa/Desktop/kabu/kabu_data/"
+    base_path = "/Users/kansei/Desktop/kabu/kabu_data/"
     number_list = os.listdir(base_path)
     dp = database.database_python("/Users/kansei/Desktop/kabu/database/predict_kabu.db")
     dp.cleatetable("kabu_value", ["number","year", "month", "day", "start", "max", "min", "finish", "yield"])
@@ -35,6 +35,8 @@ def kabu_main():
 
                     dp.add("kabu_value", kabu)
                     
-def test():                    
-    dp = database.database_python("/Users/kansei/Desktop/kabu/database/predict_kabu.db")
-    print(dp.take_out(["start", "max"], ["year=2010", "aa"]))
+#def test():                    
+#dp = database.database_python("/Users/kansei/Desktop/kabu/database/predict_kabu.db")
+#print(dp.take_out(["start", "max"], ["year=2010", "aa"]))
+
+kabu_main()
