@@ -4,9 +4,9 @@ import database
 def kabu_main():
     base_path = "/Users/kansei.ishikawa/Desktop/kabu/kabu_data/"
     number_list = os.listdir(base_path)
-    dp = database.database_python("predict_kabu.db")
-    dp.cleatetable("kabu_value", ["year", "month", "day", "start", "max", "min", "finish", "yield"])
-    
+    dp = database.database_python("/Users/kansei/Desktop/kabu/database/predict_kabu.db")
+    dp.cleatetable("kabu_value", ["number","year", "month", "day", "start", "max", "min", "finish", "yield"])
+    number_list.sort()
     for i in range(0, len(number_list)):
         print(number_list[i])
         if os.path.isfile(base_path + number_list[i]):
@@ -21,7 +21,7 @@ def kabu_main():
             with open(base_path + number_list[i] + "/" + file_name_list[r], encoding="shift-jis") as f:
                 data = f.readlines()
                 for t in range(2 , len(data)):
-                    kabu = []
+                    kabu = [number_list[i]]
                     data[t] = data[t].replace('"', '')
                     data[t] = data[t].replace('\n', '')
                     data[t] = data[t].split(',')
@@ -35,5 +35,6 @@ def kabu_main():
 
                     dp.add("kabu_value", kabu)
                     
-                    
-kabu_main()
+def test():                    
+    dp = database.database_python("/Users/kansei/Desktop/kabu/database/predict_kabu.db")
+    print(dp.take_out(["start", "max"], ["year=2010", "aa"]))

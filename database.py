@@ -62,16 +62,7 @@ class database_python():
                 sql_command += " " + key_conditions[i]
                 if i != len(key_conditions) - 1:
                     sql_command += " AND"
-        print(sql_command)
+
         self.cursor.execute(sql_command)
         return list(self.cursor.fetchall())
     
-def main():
-    dp = database_python("test.db")
-    aa = ["a", "b", "c", "d"]
-    dp.cleatetable("aaa", aa)
-    dp.add("aaa", [1,2,3,4])
-    dp.add("aaa", [3,2,3,5])
-    ss = dp.take_out(["a", "b"], ["a=1", "b=2"],"aaa")
-    print(ss[0])
-main()
